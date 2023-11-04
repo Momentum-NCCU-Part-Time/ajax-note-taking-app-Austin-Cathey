@@ -1,12 +1,12 @@
 const app = {
     data: {
-        url: "http://localhost:3000/notes",
+        url: "http://localhost:3000/notes/",
         notes:[]
         
     },
+    
 //methods
     getNotes: function() { 
-        /* let container = document.getElementById('container') */
         fetch(this.data.url, {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
@@ -16,8 +16,22 @@ const app = {
            for (let note of response) {
             this.data.notes.push(note)
            };
-           this.generateNotesHTML()
+           this.generateNotesHTML();
         })
+    },
+
+    generateNotesHTML: function() {
+        const noteContainer = document.getElementById("container");
+        for (let note of this.data.notes) {
+        noteContainer.innerHTML += `
+        <div class="noteCard">
+            <div>${note.title}</div>
+            <div>${note.body}</div>
+            <button class="editButton data-id=${note.id}>Edit</button>
+            <button class="deleteButton data-id=${note.id}>Delete</button>
+        </div>
+        `}
+        this.addEventListeners();
     },
 
 /* createNote: function(noteId) { 
@@ -31,12 +45,12 @@ const app = {
         //finish
         this.generateNotesHTML()
     }) */
-},
+/* }, */
 
 /* displayCreateForm: function() {},
 //displays blank form */
 
-/* deleteNote: function(noteId) { //from class 11-2
+deleteNote: function(noteId) { //from class 11-2
     fetch(this.data.url + noteId, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
@@ -46,7 +60,7 @@ const app = {
         //finish delete object from this.data.notes with id (with 'if')
         this.generateNotesHTML()
     })
-}, */
+},
 
 
 /* confirmDelete: function() {},
@@ -60,19 +74,7 @@ displayEditForm: function(note) {
     //this should just be a variation of the display create form, but prepopulated
 }, */
 
-    generateNotesHTML function() {
-        const noteContainer = document.getElementById('container');
-        for (let note of this.data.notes) {
-        noteContainer.innerHTML += `
-        <div class="noteCard">
-            <div>${note.title}</div>
-            <div>${note.body}</div>
-            <button class="editButton data-id=${note.id}>Edit</button>
-            <button class="deleteButton data-id=${note.id}>Delete</button>
-        </div>
-        `}
-        this.addEventListeners();
-    },
+  
 //notes added from 11-2
     addEventListeners: function() {
         let deleteButtons = document.querySelectorAll('.deleteButton');
@@ -92,12 +94,12 @@ for (let button of deleteButtons) {
         
         this.getNotes();
     
-    then.deleteNotes();
+    /* then.deleteNotes(); */
         
     //eventListener: editNote(event.target.data-id)
     
     
-    app.main() //was getNotes
-        
+    
 }
 }
+app.main() //was getNotes

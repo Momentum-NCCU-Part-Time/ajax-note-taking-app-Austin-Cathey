@@ -1,0 +1,22 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+.hidden {
+    display: ;
+}
+
+#allNotes {
+    
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.noteCard {
+    border: 1px solid red;
+}
