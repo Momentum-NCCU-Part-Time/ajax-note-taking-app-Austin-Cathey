@@ -60,7 +60,7 @@ displayEditForm: function(note) {
     //this should just be a variation of the display create form, but prepopulated
 }, */
 
-    generateNotesHTML: function() {
+    generateNotesHTML function() {
         const noteContainer = document.getElementById('container');
         for (let note of this.data.notes) {
         noteContainer.innerHTML += `
@@ -68,12 +68,11 @@ displayEditForm: function(note) {
             <div>${note.title}</div>
             <div>${note.body}</div>
             <button class="editButton data-id=${note.id}>Edit</button>
-            //notes from 11-2
             <button class="deleteButton data-id=${note.id}>Delete</button>
         </div>
         `}
         this.addEventListeners();
-    }
+    },
 //notes added from 11-2
     addEventListeners: function() {
         let deleteButtons = document.querySelectorAll('.deleteButton');
