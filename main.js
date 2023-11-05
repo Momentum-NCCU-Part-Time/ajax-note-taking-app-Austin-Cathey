@@ -27,25 +27,26 @@ const app = {
         <div class="noteCard">
             <div>${note.title}</div>
             <div>${note.body}</div>
-            <button class="editButton data-id=${note.id}>Edit</button>
-            <button class="deleteButton data-id=${note.id}>Delete</button>
+            <button class="createButton" data-id=${note.id}>New Note</button>
+            <button class="editButton" data-id=${note.id}>Edit</button>
+            <button class="deleteButton" data-id=${note.id}>Delete</button>
         </div>
         `}
         this.addEventListeners();
     },
 
-/* createNote: function(noteId) { 
+createNote: function(noteId) { 
     fetch(this.data.url, {
         method: 'POST',
-        headers: {"Content-Type": "application/json"}
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({"title": "Hi", "body": "COOL"})
     })
     .then(r => r.json())
     .then(response => {
         //finish
         this.generateNotesHTML()
-    }) */
-/* }, */
+    }) 
+},
 
 /* displayCreateForm: function() {},
 //displays blank form */
@@ -93,6 +94,7 @@ for (let button of deleteButtons) {
         //use event.preventDefault();
         
         this.getNotes();
+        this.createNote();
     
     /* then.deleteNotes(); */
         
