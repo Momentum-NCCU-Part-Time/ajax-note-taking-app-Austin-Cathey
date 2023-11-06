@@ -8,9 +8,6 @@ box-sizing: border-box;
     display: ;
 }
 
-#allNotes {
-    
-}
 
 #container {
     display: flex;
@@ -19,4 +16,6 @@ box-sizing: border-box;
 
 .noteCard {
     border: 1px solid red;
+    height: auto;
+    width: auto;
 }

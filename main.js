@@ -35,11 +35,8 @@ const app = {
     },
 
     //methods
-
-    
-   
-
-createNote: function(noteId) { 
+// Creates new notes, currently bugged, makes new notes on page reload
+createNote: function() { 
     let newTitle = document.getElementById("newTitle").value;
     let noteBody = document.getElementById("noteBody").value;
     let newNote = {
@@ -58,11 +55,7 @@ createNote: function(noteId) {
     }) 
 },
 
-showNewNote: function() {
-    let form = document.getElementById("newNote");
-    form.classList.remove("hidden")
-},
-
+//Deletes notes, currently bugged, multiplies notes
 deleteNote: function(noteId) { 
     fetch(this.data.url + noteId, {
         method: 'DELETE',
@@ -70,21 +63,33 @@ deleteNote: function(noteId) {
     })
     .then(r => r.json())
     .then(response => {
-        for (let note of response) {
-            this.data.notes.delete(note)
-            //do I need an if statement for click event?
-           };
            this.generateNotesHTML();
+           
     })
 },
 
+//Currently a spicy option
+/* confirmDelete: function(noteId) {
+    let confirmDelete = window.confirm("Confirm delete");
+    if (deleteConfirm) {
+        this.deleteNote(noteId);
+    }
+}, */
 
-/* confirmDelete: function() {},
-//display confirmation popup, call deleteNote
-editNote:function(id) {},
+editNote:function(noteId) {
+    fetch(this.data.url + noteId, {
+        method: 'PATCH',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(editedNote),
+    })
+    .then(r => r.json())
+    .then(response => {
+        this.generateNotesHTML()
+    })
+},
 // call displayEditForm, saves/overwrites note (request)
 
-displayEditForm: function(note) {
+/* displayEditForm: function(note) {
     let form = document.getElementById('editForm');
      form.classList.remove('hidden') //with eventlistener to remove hidden
     //this should just be a variation of the display create form, but prepopulated
@@ -94,13 +99,20 @@ displayEditForm: function(note) {
 
     addEventListeners: function() {
         let deleteButtons = document.querySelectorAll('.deleteButton');
-        console.log(deleteButtons);
 for (let button of deleteButtons) {
     button.addEventListener('click', (event) => {
         event.preventDefault();
         this.deleteNote(button.dataset.id);
-    })   
+    });   
 }
+
+    let saveButton = document.getElementById("postNote");
+    for (let button of saveButton) {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.createNote();
+        });
+    }
     },
 
     main: function() {
@@ -111,12 +123,10 @@ for (let button of deleteButtons) {
         this.getNotes();
         this.createNote();
         this.deleteNote();
-    
-    /* then.deleteNotes(); */
+        this.editNote();
+       
         
     //eventListener: editNote(event.target.data-id)
-    
-    
     
 }
 }

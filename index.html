@@ -9,20 +9,21 @@
     <script src="main.js" defer></script>
   </head>
   <body>
-    <div id="createNote">
-      <button id="newButton">New Note</button>
-      <form id="newNote" class="hidden">
+
+      <form id="newNote">
         <h3>New Note</h3>
         <label for="newTitle"
-          >Title:<input id="newTitle" type="text" required
-        /></label>
+          ><textarea id="newTitle" rows="1" cols="20" />Title:</textarea></label>
+        <br>
         <label for="noteBody"
-          >Body:
-          <input id="noteBody" type="text" required />
+          >
+          <textarea id="noteBody" rows="4" cols="20" required/>Body:</textarea>
         </label>
+        <br>
         <button id="postNote" type="submit">Save</button>
       </form>
     </div>
+    <h3>Saved Notes</h3>
     <div id="container"></div>
     <!-- <form id="editForm" class="hidden">
       <h2>edit form is visible</h2>
