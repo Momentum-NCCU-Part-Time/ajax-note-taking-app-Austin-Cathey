@@ -5,7 +5,7 @@ const app = {
         
     },
     
-//methods
+//gets notes from url
     getNotes: function() { 
         fetch(this.data.url, {
             method: 'GET',
@@ -19,7 +19,7 @@ const app = {
            this.generateNotesHTML();
         })
     },
-
+//creates noteCard divs to show the data
     generateNotesHTML: function() {
         const noteContainer = document.getElementById("container");
         for (let note of this.data.notes) {
@@ -27,7 +27,6 @@ const app = {
         <div class="noteCard">
             <div>${note.title}</div>
             <div>${note.body}</div>
-            <button class="createButton" data-id=${note.id}>New Note</button>
             <button class="editButton" data-id=${note.id}>Edit</button>
             <button class="deleteButton" data-id=${note.id}>Delete</button>
         </div>
@@ -35,31 +34,47 @@ const app = {
         this.addEventListeners();
     },
 
+    //methods
+
+    
+   
+
 createNote: function(noteId) { 
+    let newTitle = document.getElementById("newTitle").value;
+    let noteBody = document.getElementById("noteBody").value;
+    let newNote = {
+        title: newTitle,
+        body: noteBody
+    }
+
     fetch(this.data.url, {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({"title": "Hi", "body": "COOL"})
+        body: JSON.stringify(newNote),
     })
     .then(r => r.json())
     .then(response => {
-        //finish
         this.generateNotesHTML()
     }) 
 },
 
-/* displayCreateForm: function() {},
-//displays blank form */
+showNewNote: function() {
+    let form = document.getElementById("newNote");
+    form.classList.remove("hidden")
+},
 
-deleteNote: function(noteId) { //from class 11-2
+deleteNote: function(noteId) { 
     fetch(this.data.url + noteId, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
     })
     .then(r => r.json())
     .then(response => {
-        //finish delete object from this.data.notes with id (with 'if')
-        this.generateNotesHTML()
+        for (let note of response) {
+            this.data.notes.delete(note)
+            //do I need an if statement for click event?
+           };
+           this.generateNotesHTML();
     })
 },
 
@@ -76,7 +91,7 @@ displayEditForm: function(note) {
 }, */
 
   
-//notes added from 11-2
+
     addEventListeners: function() {
         let deleteButtons = document.querySelectorAll('.deleteButton');
         console.log(deleteButtons);
@@ -95,6 +110,7 @@ for (let button of deleteButtons) {
         
         this.getNotes();
         this.createNote();
+        this.deleteNote();
     
     /* then.deleteNotes(); */
         

@@ -9,8 +9,19 @@
     <script src="main.js" defer></script>
   </head>
   <body>
-    <div id="newNote">
-      <form id="newForm"><button id="newButton">New Note</button></form>
+    <div id="createNote">
+      <button id="newButton">New Note</button>
+      <form id="newNote" class="hidden">
+        <h3>New Note</h3>
+        <label for="newTitle"
+          >Title:<input id="newTitle" type="text" required
+        /></label>
+        <label for="noteBody"
+          >Body:
+          <input id="noteBody" type="text" required />
+        </label>
+        <button id="postNote" type="submit">Save</button>
+      </form>
     </div>
     <div id="container"></div>
     <!-- <form id="editForm" class="hidden">
