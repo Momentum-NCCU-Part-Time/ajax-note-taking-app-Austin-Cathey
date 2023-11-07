@@ -1,0 +1,28 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+margin-left: 2px;
+}
+
+.hidden {
+    display: none;
+}
+
+#newNote {
+    /* border: 2px solid rgb(186, 186, 186);
+    border-radius: 10% 10% 10% 10%; */
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.noteCard {
+    border: 2px solid rgb(186, 186, 186);
+    border-radius: 10% 10% 10% 10%;
+    height: auto;
+    width: auto;
+    margin: 5px;
+}

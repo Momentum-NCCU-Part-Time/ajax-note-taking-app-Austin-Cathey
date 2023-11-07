@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Notes</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+
+      <form id="newNote">
+        <h3>New Note</h3>
+        <label for="newTitle"
+          ><textarea id="newTitle" rows="1" cols="20" reqired />Title:</textarea></label>
+        <br>
+        <label for="noteBody"
+          >
+          <textarea id="noteBody" rows="4" cols="20" required />Body:</textarea>
+        </label>
+        <br>
+        <button id="postNote" class="saveNote" type="submit">Save</button>
+      </form>
+    </div>
+    <br>
+    <form id="editForm" class="hidden">
+      <h3>Edit Note</h3>
+      <label for="editTitle"
+          ><textarea id="editTitle" rows="1" cols="20" reqired />Title:</textarea></label>
+        <br>
+        <label for="editBody"
+          >
+          <textarea id="editBody" rows="4" cols="20" required />Body:</textarea>
+        </label>
+        <br>
+        <button id="editedNote" class="editNote" type="submit">Save Edit</button>
+    
+      </form>
+      <br>
+    <h3>Saved Notes</h3>
+   
+    <div id="container"></div>
+  </body>
 </html>
