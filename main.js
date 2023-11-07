@@ -106,11 +106,11 @@ for (let button of deleteButtons) {
     });   
 }
 
-    let saveButton = document.getElementById("postNote");
+    let saveButton = document.querySelectorAll('.saveNote');
     for (let button of saveButton) {
         button.addEventListener('click', (event) => {
             event.preventDefault();
-            this.createNote();
+            this.createNote(button.dataset.id);
         });
     }
     },
@@ -121,9 +121,9 @@ for (let button of deleteButtons) {
         //use event.preventDefault();
         
         this.getNotes();
-        this.createNote();
+        /* this.createNote();
         this.deleteNote();
-        this.editNote();
+        this.editNote(); */
        
         
     //eventListener: editNote(event.target.data-id)
