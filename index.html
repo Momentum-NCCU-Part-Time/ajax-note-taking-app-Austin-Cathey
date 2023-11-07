@@ -23,12 +23,19 @@
         <button id="postNote" class="saveNote" type="submit">Save</button>
       </form>
     </div>
+    <form id="editForm" class="hidden">
+      <h2>Edit Note</h2>
+      <label for="editTitle"
+          ><textarea id="editTitle" rows="1" cols="20" reqired />Title:</textarea></label>
+        <br>
+        <label for="editBody"
+          >
+          <textarea id="editBody" rows="4" cols="20" required />Body:</textarea>
+        </label>
+        <br>
+        <button id="editedNote" class="editNote" type="submit">Edit</button>
+    </form>
     <h3>Saved Notes</h3>
     <div id="container"></div>
-    <!-- <form id="editForm" class="hidden">
-      <h2>edit form is visible</h2>
-      <input type="text" />
-      <button type="submit">Edit</button> -->
-    <!-- </form> -->
   </body>
 </html>

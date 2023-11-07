@@ -34,6 +34,10 @@ const app = {
         this.addEventListeners();
     },
 
+    refresh: function() {
+        window.parent.location = window.parent.location.href;
+    },
+
     //methods
 // Creates new notes, currently bugged, makes new notes on page reload
 createNote: function() { 
@@ -77,6 +81,13 @@ deleteNote: function(noteId) {
 }, */
 
 editNote:function(noteId) {
+    let editedTitle = document.getElementById("editTitle").value;
+    let editedBody = document.getElementById("editBody").value;
+    let editedNote = {
+        title: editedTitle,
+        body: editedBody
+    }
+
     fetch(this.data.url + noteId, {
         method: 'PATCH',
         headers: {"Content-Type": "application/json"},
@@ -88,32 +99,52 @@ editNote:function(noteId) {
     })
 },
 // call displayEditForm, saves/overwrites note (request)
-
-/* displayEditForm: function(note) {
-    let form = document.getElementById('editForm');
-     form.classList.remove('hidden') //with eventlistener to remove hidden
+//with eventlistener to remove hidden
     //this should just be a variation of the display create form, but prepopulated
-}, */
+
+displayEditForm: function(note) {
+    let form = document.getElementById("editForm");
+     form.classList.remove("hidden"); 
+},
 
   
 
     addEventListeners: function() {
         let deleteButtons = document.querySelectorAll('.deleteButton');
-for (let button of deleteButtons) {
+    for (let button of deleteButtons) {
     button.addEventListener('click', (event) => {
         event.preventDefault();
         this.deleteNote(button.dataset.id);
+        this.refresh();
     });   
-}
+    }
 
     let saveButton = document.querySelectorAll('.saveNote');
     for (let button of saveButton) {
         button.addEventListener('click', (event) => {
             event.preventDefault();
             this.createNote(button.dataset.id);
+            this.refresh();
         });
     }
-    },
+//displays edit form
+    let editButtons = document.querySelectorAll(".editButton");
+    for (let button of editButtons) {
+        button.addEventListener("click", (event) => {
+        event.preventDefault();
+        this.displayEditForm(button.dataset.id);
+        });
+    }
+//edit button for saving actual edits
+    let editNote = document.querySelectorAll('.editNote');
+    for (let button of editNote) {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.editNote(button.dataset.id);
+            this.refresh();
+        });
+    }
+},
 
     main: function() {
         //call getNotes(), set up event listeners (will contain if statements,
@@ -121,6 +152,7 @@ for (let button of deleteButtons) {
         //use event.preventDefault();
         
         this.getNotes();
+
         /* this.createNote();
         this.deleteNote();
         this.editNote(); */
