@@ -15,9 +15,9 @@ const app = {
         .then(response => {
            for (let note of response) {
             this.data.notes.push(note)
-           };
+            };
            this.generateNotesHTML();
-        })
+           }) 
     },
 //creates noteCard divs to show the data
     generateNotesHTML: function() {
@@ -58,9 +58,9 @@ createNote: function() {
         this.generateNotesHTML()
     }) 
 },
-
-//Deletes notes, currently bugged, multiplies notes
+//Deletes notes
 deleteNote: function(noteId) { 
+    console.log({noteId})
     fetch(this.data.url + noteId, {
         method: 'DELETE',
         headers: {"Content-Type": "application/json"}
@@ -81,11 +81,12 @@ deleteNote: function(noteId) {
 }, */
 
 editNote:function(noteId) {
+    
     let editedTitle = document.getElementById("editTitle").value;
     let editedBody = document.getElementById("editBody").value;
     let editedNote = {
         title: editedTitle,
-        body: editedBody
+        body: editedBody,
     }
 
     fetch(this.data.url + noteId, {
@@ -95,14 +96,25 @@ editNote:function(noteId) {
     })
     .then(r => r.json())
     .then(response => {
-        this.generateNotesHTML()
+        this.data.notes = []
+        this.getNotes()
     })
 },
 // call displayEditForm, saves/overwrites note (request)
 //with eventlistener to remove hidden
     //this should just be a variation of the display create form, but prepopulated
 
-displayEditForm: function(note) {
+displayEditForm: function(noteId) {
+    let note = this.data.notes.find(note = note.id == noteId);
+    console.log(note)
+    if (!note) {
+        console.error("Sorry bro :[");
+        return
+    }
+    document.getElementById("editTitle").value = note.title;
+    document.getElementById("editBody").value = note.body;
+    let editedNote = document.getElementById("editedNote");
+    editedNote.dataset.id = noteId
     let form = document.getElementById("editForm");
      form.classList.remove("hidden"); 
 },
@@ -136,14 +148,13 @@ displayEditForm: function(note) {
         });
     }
 //edit button for saving actual edits
-    let editNote = document.querySelectorAll('.editNote');
-    for (let button of editNote) {
-        button.addEventListener('click', (event) => {
+    let editNote = document.getElementById('editedNote');
+        editNote.addEventListener('click', (event) => {
             event.preventDefault();
-            this.editNote(button.dataset.id);
-            this.refresh();
+            this.editNote(editNote.dataset.id);
+            /* this.refresh(); */
         });
-    }
+    
 },
 
     main: function() {
