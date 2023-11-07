@@ -105,7 +105,7 @@ editNote:function(noteId) {
     //this should just be a variation of the display create form, but prepopulated
 
 displayEditForm: function(noteId) {
-    let note = this.data.notes.find(note = note.id == noteId);
+    let note = this.data.notes.find(note => note.id == noteId);
     console.log(note)
     if (!note) {
         console.error("Sorry bro :[");
@@ -152,7 +152,7 @@ displayEditForm: function(noteId) {
         editNote.addEventListener('click', (event) => {
             event.preventDefault();
             this.editNote(editNote.dataset.id);
-            /* this.refresh(); */
+            this.refresh();
         });
     
 },
