@@ -15,13 +15,14 @@ const app = {
         .then(response => {
            for (let note of response) {
             this.data.notes.push(note)
-            };
+            };console.log(this.data.notes)
            this.generateNotesHTML();
            }) 
     },
 //creates noteCard divs to show the data
     generateNotesHTML: function() {
         const noteContainer = document.getElementById("container");
+        noteContainer.innerHTML = [];
         for (let note of this.data.notes) {
         noteContainer.innerHTML += `
         <div class="noteCard">
@@ -39,7 +40,7 @@ const app = {
     },
 
     //methods
-// Creates new notes, currently bugged, makes new notes on page reload
+// Creates new notes, makes new notes on page reload
 createNote: function() { 
     let newTitle = document.getElementById("newTitle").value;
     let noteBody = document.getElementById("noteBody").value;
@@ -55,7 +56,8 @@ createNote: function() {
     })
     .then(r => r.json())
     .then(response => {
-        this.generateNotesHTML()
+        this.data.notes = [];
+        this.getNotes();
     }) 
 },
 //Deletes notes
@@ -67,7 +69,8 @@ deleteNote: function(noteId) {
     })
     .then(r => r.json())
     .then(response => {
-           this.generateNotesHTML();
+        this.data.notes = [];
+        this.getNotes();
            
     })
 },
@@ -127,7 +130,7 @@ displayEditForm: function(noteId) {
     button.addEventListener('click', (event) => {
         event.preventDefault();
         this.deleteNote(button.dataset.id);
-        this.refresh();
+        
     });   
     }
 
